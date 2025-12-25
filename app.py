@@ -15,11 +15,18 @@ import pandas as pd
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from src.main import JamabandiPipeline
-from src.core import get_logger, get_config
-from src.core.exceptions import AgriStackError
+try:
+    from src.main import JamabandiPipeline
+    from src.core import get_logger, get_config
+    from src.core.exceptions import AgriStackError
+    
+    logger = get_logger(__name__)
 
-logger = get_logger(__name__)
+except Exception as e:
+    import traceback
+    st.error(f"Startup Error: {e}")
+    st.code(traceback.format_exc())
+    st.stop()
 
 # Page configuration
 st.set_page_config(
